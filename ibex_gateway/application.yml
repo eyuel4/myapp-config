@@ -1,0 +1,33 @@
+
+server:
+  port: 8060
+
+spring:
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+
+zuul:
+  ignored-services: '*'
+  prefix: /api
+  routes:
+    ibex_test:
+      path: /test/**
+      serviceId: ibex_test
+    ibex_authservice:
+      path: /auth/**
+      stripPrefix: false
+      serviceId: ibex_authservice
+  add-proxy-headers: true
+
+#### Enable actuator/routes endpoint
+management:
+  endpoint:
+    routes:
+      enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: '*'
